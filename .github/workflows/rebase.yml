@@ -19,6 +19,11 @@ jobs:
       - name: Fetch upstream
         run: git fetch upstream main
 
+      - name: Set git identity
+        run: |
+          git config user.name "Rebaser"
+          git config user.email "rebaser@localhost"
+
       - name: Rebase onto upstream main
         run: git rebase upstream/main
 
