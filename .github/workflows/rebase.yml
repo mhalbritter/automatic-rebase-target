@@ -1,0 +1,26 @@
+name: Rebase
+
+on:
+  workflow_dispatch:
+
+jobs:
+  rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/mhalbritter/automatic-rebase-source.git
+
+      - name: Fetch upstream
+        run: git fetch upstream main
+
+      - name: Rebase onto upstream main
+        run: git rebase upstream/main
+
+      - name: Push rebased branch
+        run: git push --force-with-lease origin main
